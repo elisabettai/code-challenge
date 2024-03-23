@@ -126,11 +126,18 @@ public class TradeSteps {
         UUID orderId = UUID.randomUUID();
         orderDTO.setId(orderId);
 
+        OrderDTO createdOrder = restUtility.post("api/orders", orderDTO, OrderDTO.class);
         logger.info("Order created: {}", orderDTO);
         if (orderType == EOrderType.BUY) {
-                this.buyOrder = orderDTO;
+                this.buyOrder = createdOrder;
+                // restUtility.post("api/orders", 
+                // this.buyOrder,
+                // OrderDTO.class);
         } else if (orderType == EOrderType.SELL) {
-                this.sellOrder = orderDTO;
+                this.sellOrder = createdOrder;
+                // restUtility.post("api/orders", 
+                // this.sellOrder,
+                // OrderDTO.class);
         }
 
     }
