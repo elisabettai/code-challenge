@@ -117,7 +117,7 @@ public class TradeSteps {
         SecurityDTO securityDTO = securityMap.get(securityName);
 
         OrderDTO orderDTO = new OrderDTO();
-        orderDTO.setFulfilled(Boolean.FALSE);
+        //orderDTO.setFulfilled(Boolean.FALSE);
         orderDTO.setUserId(userDTO.getId());
         orderDTO.setSecurityId(securityDTO.getId());
         orderDTO.setPrice(price);
