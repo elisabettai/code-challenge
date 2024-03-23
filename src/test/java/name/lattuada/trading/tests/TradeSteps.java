@@ -17,6 +17,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.Assert.assertEquals;
@@ -38,8 +39,17 @@ public class TradeSteps {
     }
 
     // TODO implement: Given for "one security {string} and two users {string} and {string} exist"
+    @Given("one security {string} and two users {string} and {string} exist")
     public void oneSecurityAndTwoUsers(String securityName, String userName1, String userName2) {
-
+        if (!userMap.containsKey(userName1)) {
+                createUser(userName1);
+        }
+        if (!userMap.containsKey(userName2)) {
+                createUser(userName2);
+        }
+        if (!securityMap.containsKey(securityName)) {
+                createSecurity(securityName);
+        }        
     }
 
     @When("user {string} puts a {string} order for security {string} with a price of {double} and quantity of {long}")
@@ -97,13 +107,26 @@ public class TradeSteps {
         logger.info("Security created: {}", securityReturned);
     }
 
-    private void createOrder(String userName,
+    private OrderDTO createOrder(String userName,
                              EOrderType orderType,
                              String securityName,
                              Double price,
                              Long quantity) {
         // TODO: implement create oder function
+        UserDTO userDTO = userMap.get(userName);
+        SecurityDTO securityDTO = securityMap.get(securityName);
+
+        OrderDTO orderDTO = new OrderDTO();
+        orderDTO.setFulfilled(Boolean.FALSE);
+        orderDTO.setUserId(userDTO.getId());
+        orderDTO.setSecurityId(securityDTO.getId());
+        orderDTO.setPrice(price);
+        orderDTO.setType(orderType);
+        orderDTO.setQuantity(quantity);
+        UUID orderId = UUID.randomUUID();
+        orderDTO.setId(orderId);
         logger.info("To be implemented! ... Order created: {}");
+        return orderDTO;
     }
 
 }
