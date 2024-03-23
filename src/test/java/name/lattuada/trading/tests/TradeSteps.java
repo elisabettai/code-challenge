@@ -107,7 +107,7 @@ public class TradeSteps {
         logger.info("Security created: {}", securityReturned);
     }
 
-    private OrderDTO createOrder(String userName,
+    private void createOrder(String userName,
                              EOrderType orderType,
                              String securityName,
                              Double price,
@@ -125,8 +125,14 @@ public class TradeSteps {
         orderDTO.setQuantity(quantity);
         UUID orderId = UUID.randomUUID();
         orderDTO.setId(orderId);
-        logger.info("To be implemented! ... Order created: {}");
-        return orderDTO;
+
+        logger.info("Order created: {}", orderDTO);
+        if (orderType == EOrderType.BUY) {
+                this.buyOrder = orderDTO;
+        } else if (orderType == EOrderType.SELL) {
+                this.sellOrder = orderDTO;
+        }
+
     }
 
 }
