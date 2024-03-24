@@ -117,7 +117,6 @@ public class TradeSteps {
         SecurityDTO securityDTO = securityMap.get(securityName);
 
         OrderDTO orderDTO = new OrderDTO();
-        //orderDTO.setFulfilled(Boolean.FALSE);
         orderDTO.setUserId(userDTO.getId());
         orderDTO.setSecurityId(securityDTO.getId());
         orderDTO.setPrice(price);
@@ -130,14 +129,8 @@ public class TradeSteps {
         logger.info("Order created: {}", orderDTO);
         if (orderType == EOrderType.BUY) {
                 this.buyOrder = createdOrder;
-                // restUtility.post("api/orders", 
-                // this.buyOrder,
-                // OrderDTO.class);
         } else if (orderType == EOrderType.SELL) {
                 this.sellOrder = createdOrder;
-                // restUtility.post("api/orders", 
-                // this.sellOrder,
-                // OrderDTO.class);
         }
 
     }
