@@ -2,6 +2,7 @@ name: Build application and run tests
 on: push
 
 jobs:
+  runs-on: ubuntu-latest
   build-and-test:
     steps:
     - uses: actions/checkout@v4
