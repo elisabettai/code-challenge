@@ -1,6 +1,6 @@
 # Simple Trading Application
 
-This is a simple trading application.
+This is a simple trading application. TODO: explain changes
 
 Being a first draft, it uses an in-memory H2 database. Neither the schema, nor the data are explicitly created.
 
