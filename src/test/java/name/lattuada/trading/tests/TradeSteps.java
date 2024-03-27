@@ -12,7 +12,9 @@ import name.lattuada.trading.model.dto.UserDTO;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashMap;
 import java.util.Locale;
@@ -32,8 +34,9 @@ public class TradeSteps {
     private OrderDTO buyOrder;
     private OrderDTO sellOrder;
 
-    TradeSteps() {
-        restUtility = new RestUtility();
+    @Autowired
+    public TradeSteps(RestUtility restUtility) {
+        this.restUtility = restUtility;
         securityMap = new HashMap<>();
         userMap = new HashMap<>();
     }
