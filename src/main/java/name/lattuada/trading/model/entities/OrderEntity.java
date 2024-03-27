@@ -20,11 +20,13 @@ public class OrderEntity {
     @Column(name = "ord_id")
     private UUID id;
 
-    @Column(name = "ord_usr_id")
-    private UUID userId;
+    @ManyToOne
+    @JoinColumn(name = "ord_usr_id")
+    private UserEntity userId;
 
-    @Column(name = "ord_sec_id")
-    private UUID securityId;
+    @ManyToOne
+    @JoinColumn(name = "ord_sec_id")
+    private SecurityEntity securityId;
 
     @Column(name = "ord_type")
     @Enumerated(EnumType.STRING)
