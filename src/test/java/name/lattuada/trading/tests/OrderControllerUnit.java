@@ -62,13 +62,13 @@ public class OrderControllerUnit {
 
     @Test
     public void testAddOrderNonExistingUser() {
-        // Create a mock order DTO with a non-existing user ID
+        // Create a mock order non-existing user ID
         OrderDTO mockOrderDTO = new OrderDTO();
-        mockOrderDTO.setUserId(UUID.randomUUID()); // Assuming this ID doesn't exist
+        mockOrderDTO.setUserId(UUID.randomUUID()); 
 
         // Set up mock behavior to throw an exception when trying to save the order
         when(orderRepository.save(any(OrderEntity.class)))
-                .thenThrow(new RuntimeException("User not found")); // Or any appropriate exception
+                .thenThrow(new RuntimeException("User not found"));
 
         // Call the addOrder() method with the mock order DTO
         ResponseEntity<OrderDTO> responseEntity = orderController.addOrder(mockOrderDTO);
