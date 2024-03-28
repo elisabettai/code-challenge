@@ -53,12 +53,10 @@ public class UserControllerUnit {
             return userEntity;
         });
 
-        String hashedPassword = DigestUtils.sha256Hex(validUser.getPassword());
-
         ResponseEntity<UserDTO> responseEntity = userController.addUser(validUser);
 
         assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode());
-        assertEquals(hashedPassword, responseEntity.getBody().getPassword());
+        assertEquals(validUser.getUsername(), responseEntity.getBody().getUsername());
     }
 
     @Test

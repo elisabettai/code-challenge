@@ -27,7 +27,7 @@ import static org.junit.Assert.assertTrue;
 
 public class TradeSteps {
 
-    private static final Logger logger = LoggerFactory.getLogger(CucumberTest.class);
+    private static final Logger logger = LoggerFactory.getLogger(TradeSteps.class);
     private final RestUtility restUtility;
     private final Map<String, SecurityDTO> securityMap;
     private final Map<String, UserDTO> userMap;

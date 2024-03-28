@@ -155,5 +155,5 @@ public class OrderController {
         buy = orderRepository.save(buy);
         LOGGER.info("Buy order has bee updated: {}", buy);
     }
-
+    
 }

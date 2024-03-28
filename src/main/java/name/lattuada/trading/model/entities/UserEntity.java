@@ -26,4 +26,11 @@ public class UserEntity {
     @ToString.Exclude
     private String password;
 
+    @Override
+    public String toString() {
+        return "UserEntity{" +
+                "id=" + id +
+                ", Order Sell ID=" + username +
+                '}';
+    }
 }

@@ -22,4 +22,11 @@ public class SecurityEntity {
     @Column(name = "sec_name")
     private String name;
 
+    @Override
+    public String toString() {
+        return "SecurityEntity{" +
+                "id=" + id +
+                ", Name=" + name +
+                '}';
+    }
 }

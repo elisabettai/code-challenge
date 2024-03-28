@@ -30,12 +30,10 @@ public class SecurityControllerUnit {
     @InjectMocks
     private SecurityController securityController;
 
-    private SecurityEntity mockSecurity;
-
     @Test
     public void testGetSecurityByIdSuccess() {
         // Create a mock SecurityEntity
-        mockSecurity = new SecurityEntity();
+        SecurityEntity mockSecurity = new SecurityEntity();
         mockSecurity.setId(UUID.randomUUID());
         mockSecurity.setName("Mock Security");
 

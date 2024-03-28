@@ -31,4 +31,14 @@ public class TradeEntity {
     @Column(name = "trd_quantity")
     private Long quantity;
 
+    @Override
+    public String toString() {
+        return "TradeEntity{" +
+                "id=" + id +
+                ", Order Sell ID=" + orderSellId +
+                ", Order Buy ID=" + orderBuyId +
+                ", price=" + price +
+                ", quantity=" + quantity +
+                '}';
+    }
 }

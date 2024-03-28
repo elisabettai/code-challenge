@@ -41,4 +41,16 @@ public class OrderEntity {
     @Column(name = "ord_fulfilled")
     private Boolean fulfilled = Boolean.FALSE;
 
+    @Override
+    public String toString() {
+        return "OrderEntity{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", securityId=" + securityId +
+                ", type=" + type +
+                ", price=" + price +
+                ", quantity=" + quantity +
+                ", fulfilled=" + fulfilled +
+                '}';
+    }
 }
