@@ -28,8 +28,4 @@ Maven (define the environment variable `M2_HOME` appropriately).
 2. Constraints on DB schema to ensure that orders occure only for existing users and securities
 3. Introduced a test parameter for the Cucumber tests to read the base url from the [applications.properties](/src/test/resources/application.properties)
 4. Fixed some of the errors notified by SpotBugs (you can check them via `mvn spotbugs:gui`)
-5. Fixed ed some of the errors notified by Checkstyle (and eventually tune the settings file). You can check the errors via
-    ```shell
-   mvn checkstyle:checkstyle
-   ```
-   then open the HTML report located to `target/site/checkstyle.html`.
+5. Checkstyle: fixed some of the errors and added a custom [configuration file](/src/main/resources/checkstyle.xml) to tune the settings.

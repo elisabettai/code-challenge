@@ -43,7 +43,8 @@ public class OrderController {
     private final ITradeRepository tradeRepository;
 
     @Autowired
-    public OrderController(IOrderRepository orderRepository, @Lazy ITradeRepository tradeRepository) {
+    public OrderController(final IOrderRepository orderRepository,
+                          @Lazy final ITradeRepository tradeRepository) {
         this.orderRepository = orderRepository;
         this.tradeRepository = tradeRepository;
     }
@@ -63,11 +64,13 @@ public class OrderController {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
             if (LOGGER.isDebugEnabled()) {
-                LOGGER.debug("Found {} orders: {}", orderList.size(), orderList);
+                LOGGER.debug("Found {} orders: {}",
+                             orderList.size(), orderList);
             } else {
                 LOGGER.info("Found {} orders", orderList.size());
             }
-            return new ResponseEntity<>(Mapper.mapAll(orderList, OrderDTO.class), HttpStatus.OK);
+            return new ResponseEntity<>(Mapper.mapAll(orderList,
+                            OrderDTO.class), HttpStatus.OK);
         } catch (Exception e) {
             LOGGER.error(EXCEPTION_CAUGHT, e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -104,7 +107,7 @@ public class OrderController {
             @ApiResponse(code = 201, message = "Order created"),
             @ApiResponse(code = 500, message = "Server error")
     })
-    public ResponseEntity<OrderDTO> addOrder(@Valid @RequestBody OrderDTO order) {
+    public ResponseEntity<OrderDTO> addOrder(@Valid @RequestBody final OrderDTO order) {
         try {
             OrderEntity created = orderRepository.save(Mapper.map(order, OrderEntity.class));
             created = orderRepository.getById(created.getId());

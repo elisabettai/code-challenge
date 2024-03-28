@@ -13,8 +13,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
+// import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PostMapping;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
@@ -22,7 +27,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/securities")
-public class SecurityController {
+public final class SecurityController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SecurityController.class);
     private static final String EXCEPTION_CAUGHT = "Exception caught";
@@ -30,7 +35,7 @@ public class SecurityController {
     private final ISecurityRepository securityRepository;
 
     @Autowired
-    private SecurityController(ISecurityRepository securityRepository) {
+    private SecurityController(final ISecurityRepository securityRepository) {
         this.securityRepository = securityRepository;
     }
 
@@ -67,7 +72,7 @@ public class SecurityController {
             @ApiResponse(code = 404, message = "Security not found"),
             @ApiResponse(code = 500, message = "Server error")
     })
-    public ResponseEntity<SecurityDTO> getSecurityById(@PathVariable("id") UUID uuid) {
+    public ResponseEntity<SecurityDTO> getSecurityById(final @PathVariable("id") UUID uuid) {
         try {
             Optional<SecurityEntity> optSecurity = securityRepository.findById(uuid);
             return optSecurity.map(security -> {
@@ -90,7 +95,7 @@ public class SecurityController {
             @ApiResponse(code = 201, message = "Security created"),
             @ApiResponse(code = 500, message = "Server error")
     })
-    public ResponseEntity<SecurityDTO> addSecurity(@Valid @RequestBody SecurityDTO security) {
+    public ResponseEntity<SecurityDTO> addSecurity(final @Valid @RequestBody SecurityDTO security) {
         try {
             SecurityEntity created = securityRepository.save(Mapper.map(security, SecurityEntity.class));
             LOGGER.info("Added security: {}", created);
