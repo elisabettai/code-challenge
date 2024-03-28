@@ -37,10 +37,10 @@ public class TradeControllerUnit {
 
     @Before
     public void setUp() {
-        // Set up mock behavior for no trades available scenario
+        // Set up no trades available scenario
         no_trades = new ArrayList<>();
 
-        // Set up mock behavior to check to valid trades
+        // Set up two valid trades
         two_trades = new ArrayList<>();
         TradeEntity trade1 = new TradeEntity();
         two_trades.add(trade1);
@@ -55,44 +55,44 @@ public class TradeControllerUnit {
 
         ResponseEntity<List<TradeDTO>> responseEntity = tradeController.getTrades();
 
-        // Verify that the response status code is 204 (NO_CONTENT)
+        // Check that the status code is 204 (NO_CONTENT)
         assertEquals(HttpStatus.NO_CONTENT, responseEntity.getStatusCode());
     }
 
     @Test
     public void testGetTradeByIdNotFound() {
-        // Set up mock behavior for tradeRepository.findById()
+        // Mock tradeRepository.findById()
         when(tradeRepository.findById(any())).thenReturn(Optional.empty());
 
-        // Call the getTradeById() method with a random UUID
+        // Call getTradeById() with a random UUID
         ResponseEntity<TradeDTO> responseEntity = tradeController.getTradeById(UUID.randomUUID());
 
-        // Verify that the response status code is 404 (NOT_FOUND)
+        // Check that the status code is 404 (NOT_FOUND)
         assertEquals(HttpStatus.NOT_FOUND, responseEntity.getStatusCode());
     }
 
     @Test
     public void testGetTradeByBuyAndSellOrderIdNotFound() {
-        // Set up mock behavior for tradeRepository.findByOrderBuyIdAndOrderSellId()
+        // Mock tradeRepository.findByOrderBuyIdAndOrderSellId()
         when(tradeRepository.findByOrderBuyIdAndOrderSellId(any(), any())).thenReturn(new ArrayList<>());
 
-        // Call the getTradeByBuyAndSellOrderId() method with random UUIDs
+        // Call getTradeByBuyAndSellOrderId() method with random (non-existing) UUIDs
         ResponseEntity<TradeDTO> responseEntity = tradeController.getTradeByBuyAndSellOrderId(UUID.randomUUID(), UUID.randomUUID());
 
-        // Verify that the response status code is 404 (NOT_FOUND)
+        // Check that the status code is 404 (NOT_FOUND)
         assertEquals(HttpStatus.NOT_FOUND, responseEntity.getStatusCode());
     }
 
     @Test
     public void testGetTradesSuccess() {
-        // Set up mock tradeRepository to give two_trades
+        // Mock tradeRepository to give two_trades
         when(tradeRepository.findAll()).thenReturn(two_trades);
 
         ResponseEntity<List<TradeDTO>> responseEntity = tradeController.getTrades();
 
-        // Verify that the response status code is 200 (OK)
+        // Check that status code is 200 (OK)
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-        // Verify that the response body contains the correct number of trades
+        // Check that the body contains the expected number of trades
         assertEquals(2, responseEntity.getBody().size());
     }
 
@@ -109,9 +109,9 @@ public class TradeControllerUnit {
         when(tradeRepository.findByOrderBuyIdAndOrderSellId(orderBuyId, orderSellId)).thenReturn(List.of(tradeEntity));
         ResponseEntity<TradeDTO> responseEntity = tradeController.getTradeByBuyAndSellOrderId(orderBuyId, orderSellId);
       
-        // Verify that the response status code is 200 (OK)
+        // Check that the status code is 200 (OK)
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-        // Verify that the response body contains the correct trade
+        // Check that the body contains the correct trade (by ID)
         assertEquals(tradeId, responseEntity.getBody().getId());
     }
 

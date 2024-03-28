@@ -40,37 +40,35 @@ public class OrderControllerUnit {
 
     @Test
     public void testGetOrdersNoContent() {
-        // Call the getOrders() method
+
         ResponseEntity<List<OrderDTO>> responseEntity = orderController.getOrders();
 
-        // Verify that the response status code is 204 (NO_CONTENT)
+        // Check that the response code is 204 (NO_CONTENT)
         assertEquals(HttpStatus.NO_CONTENT, responseEntity.getStatusCode());
     }
 
     @Test
     public void testGetOrdersServerError() {
-        // Set up mock behavior to throw an exception when orderRepository.findAll() is called
+        // Set up mock behavior to throw an exception
         when(orderRepository.findAll()).thenThrow(new RuntimeException("Database error"));
 
-        // Call the getOrders() method
         ResponseEntity<List<OrderDTO>> responseEntity = orderController.getOrders();
 
-        // Verify that the response status code is 500 (INTERNAL_SERVER_ERROR)
+        // Check that the response code is 500 (INTERNAL_SERVER_ERROR)
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, responseEntity.getStatusCode());
         assertEquals(null, responseEntity.getBody());
     }
 
     @Test
     public void testAddOrderNonExistingUser() {
-        // Create a mock order non-existing user ID
+        // Create a mock order for a non-existing user ID
         OrderDTO mockOrderDTO = new OrderDTO();
         mockOrderDTO.setUserId(UUID.randomUUID()); 
 
-        // Set up mock behavior to throw an exception when trying to save the order
+        // Mock an exception when trying to save the order
         when(orderRepository.save(any(OrderEntity.class)))
                 .thenThrow(new RuntimeException("User not found"));
 
-        // Call the addOrder() method with the mock order DTO
         ResponseEntity<OrderDTO> responseEntity = orderController.addOrder(mockOrderDTO);
 
         // Verify that the response status code is 500 (INTERNAL_SERVER_ERROR)

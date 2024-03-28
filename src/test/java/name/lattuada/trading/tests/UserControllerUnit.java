@@ -35,10 +35,12 @@ public class UserControllerUnit {
 
     @Before
     public void setUp() {
+        // Mock a valid user
         validUser = new UserDTO();
         validUser.setUsername("validUser");
         validUser.setPassword("validPassword");
 
+        // Moch an invalid user (username is missing)
         invalidUser = new UserDTO();
         invalidUser.setPassword("invalidPassword");
     }
