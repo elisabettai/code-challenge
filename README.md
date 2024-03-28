@@ -28,3 +28,4 @@ Maven (define the environment variable `M2_HOME` appropriately).
 3. Introduced a test parameter for the Cucumber tests to read the base url from the [applications.properties](/src/test/resources/application.properties) file
 4. Fixed some of the errors notified by SpotBugs (you can check them via `mvn spotbugs:gui`)
 5. Checkstyle: fixed some of the errors and added a custom [configuration file](/src/main/resources/checkstyle.xml) to tune the settings.
+6. A [Github Action/CI](.github/workflows/build-and-test.yml) has been added to build and test the code after each push to the repository
