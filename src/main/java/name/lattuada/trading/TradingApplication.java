@@ -5,8 +5,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class TradingApplication {
-
-    public static void main(String[] args) {
+    /**
+     * Main function that starts the application.
+     * @param args
+     */
+    public static void main(final String[] args) {
         SpringApplication.run(TradingApplication.class, args);
     }
 

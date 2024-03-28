@@ -281,7 +281,7 @@
                     </dependency>
                 </dependencies>
                 <configuration>
-                    <configLocation>sun_checks.xml</configLocation>
+                    <configLocation>${project.basedir}/src/main/resources/checkstyle.xml</configLocation>
                 </configuration>
                 <executions>
                     <execution>
@@ -303,7 +303,7 @@
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>${maven-checkstyle-plugin.version}</version>
                 <configuration>
-                    <configLocation>sun_checks.xml</configLocation>
+                    <configLocation>checkstyle.xml</configLocation>
                 </configuration>
             </plugin>
         </plugins>

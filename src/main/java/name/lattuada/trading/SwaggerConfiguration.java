@@ -16,16 +16,21 @@ public class SwaggerConfiguration {
      */
     @Bean
     public Docket api() {
+        String description =
+        """
+        Simple Trading application with
+        REST API and Cucumber tests""";
+        String packageName = "name.lattuada.trading.controller";
         return new Docket(DocumentationType.SWAGGER_2)
-                .apiInfo(new ApiInfoBuilder()
-                        .description("Simple Trading application with REST API and Cucumber tests")
-                        .title("Trading application")
-                        .version("0.0.2")
-                        .build())
-                .select()
-                .apis(RequestHandlerSelectors.basePackage("name.lattuada.trading.controller"))
-                .paths(PathSelectors.any())
-                .build();
+                    .apiInfo(new ApiInfoBuilder()
+                    .description(description)
+                    .title("Trading application")
+                    .version("0.0.2")
+                    .build())
+        .select()
+        .apis(RequestHandlerSelectors.basePackage(packageName))
+        .paths(PathSelectors.any())
+        .build();
     }
 
 }
