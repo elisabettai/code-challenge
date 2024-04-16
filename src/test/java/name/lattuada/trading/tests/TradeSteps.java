@@ -44,13 +44,13 @@ public class TradeSteps {
     // TODO implement: Given for "one security {string} and two users {string} and {string} exist"
     @Given("one security {string} and two users {string} and {string} exist")
     public void oneSecurityAndTwoUsers(String securityName, String userName1, String userName2) {
-        if (!userMap.containsKey(userName1)) {
+        if (userMap.get(userName1) == null) {
                 createUser(userName1);
         }
-        if (!userMap.containsKey(userName2)) {
+        if (userMap.get(userName2) == null) {
                 createUser(userName2);
         }
-        if (!securityMap.containsKey(securityName)) {
+        if (userMap.get(securityName) == null) {
                 createSecurity(securityName);
         }        
     }
