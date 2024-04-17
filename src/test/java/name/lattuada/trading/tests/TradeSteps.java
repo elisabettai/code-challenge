@@ -35,86 +35,89 @@ public class TradeSteps {
     private OrderDTO sellOrder;
 
     @Autowired
-    public TradeSteps(RestUtility restUtility) {
-        this.restUtility = restUtility;
-        securityMap = new HashMap<>();
-        userMap = new HashMap<>();
+    public TradeSteps(final RestUtility restUtility) {
+            this.restUtility = restUtility;
+            securityMap = new HashMap<>();
+            userMap = new HashMap<>();
     }
 
-    // TODO implement: Given for "one security {string} and two users {string} and {string} exist"
+    // TODO implement: Given for "one security {string} and two users {string} and
+    // {string} exist"
     @Given("one security {string} and two users {string} and {string} exist")
-    public void oneSecurityAndTwoUsers(String securityName, String userName1, String userName2) {
-        if (userMap.get(userName1) == null) {
-                createUser(userName1);
-        }
-        if (userMap.get(userName2) == null) {
-                createUser(userName2);
-        }
-        if (userMap.get(securityName) == null) {
-                createSecurity(securityName);
-        }        
+    public void oneSecurityAndTwoUsers(final String securityName, final String userName1, final String userName2) {
+            if (userMap.get(userName1) == null) {
+                    createUser(userName1);
+            }
+            if (userMap.get(userName2) == null) {
+                    createUser(userName2);
+            }
+            if (userMap.get(securityName) == null) {
+                    createSecurity(securityName);
+            }
     }
 
     @When("user {string} puts a {string} order for security {string} with a price of {double} and quantity of {long}")
     @And("user {string} puts a {string} order for security {string} with a price of {double} and a quantity of {long}")
-    public void userPutAnOrder(String userName, String orderType, String securityName, Double price, Long quantity) {
-        logger.trace("Got username = \"{}\"; orderType = \"{}\"; securityName = \"{}\"; price = \"{}\"; quantity = \"{}\"",
-                userName, EOrderType.valueOf(orderType.toUpperCase(Locale.ROOT)), securityName, price, quantity);
-        assertTrue(String.format("Unknown user \"%s\"", userName),
-                userMap.containsKey(userName));
-        assertTrue(String.format("Unknown security \"%s\"", securityName),
-                securityMap.containsKey(securityName));
-        createOrder(userName,
-                EOrderType.valueOf(orderType.toUpperCase(Locale.ROOT)),
-                securityName,
-                price,
-                quantity);
+    public void userPutAnOrder(final String userName, final String orderType, final String securityName,
+                    final Double price, final Long quantity) {
+            logger.trace("Got username = \"{}\"; orderType = \"{}\"; securityName = \"{}\"; price = \"{}\"; quantity = \"{}\"",
+                            userName, EOrderType.valueOf(orderType.toUpperCase(Locale.ROOT)), securityName, price,
+                            quantity);
+            assertTrue(String.format("Unknown user \"%s\"", userName),
+                            userMap.containsKey(userName));
+            assertTrue(String.format("Unknown security \"%s\"", securityName),
+                            securityMap.containsKey(securityName));
+            createOrder(userName,
+                            EOrderType.valueOf(orderType.toUpperCase(Locale.ROOT)),
+                            securityName,
+                            price,
+                            quantity);
     }
 
     @Then("a trade occurs with the price of {double} and quantity of {long}")
-    public void aTradeOccursWithThePriceOfAndQuantityOf(Double price, Long quantity) {
-        logger.trace("Got price = \"{}\"; quantity = \"{}\"",
-                price, quantity);
-        TradeDTO trade = restUtility.get("api/trades/orderBuyId/" + buyOrder.getId().toString()
-                        + "/orderSellId/" + sellOrder.getId().toString(),
-                TradeDTO.class);
-        assertEquals("Price not expected", trade.getPrice(), price);
-        assertEquals("Quantity not expected", trade.getQuantity(), quantity);
+    public void aTradeOccursWithThePriceOfAndQuantityOf(final Double price, final Long quantity) {
+            logger.trace("Got price = \"{}\"; quantity = \"{}\"",
+                            price, quantity);
+            TradeDTO trade = restUtility.get("api/trades/orderBuyId/" + buyOrder.getId().toString()
+                            + "/orderSellId/" + sellOrder.getId().toString(),
+                            TradeDTO.class);
+            assertEquals("Price not expected", trade.getPrice(), price);
+            assertEquals("Quantity not expected", trade.getQuantity(), quantity);
     }
 
     @Then("no trades occur")
     public void noTradesOccur() {
-        assertThatThrownBy(() -> restUtility.get("api/trades/orderBuyId/" + buyOrder.getId().toString()
-                        + "/orderSellId/" + sellOrder.getId().toString(),
-                TradeDTO.class)).isInstanceOf(HttpClientErrorException.NotFound.class);
+            assertThatThrownBy(() -> restUtility.get("api/trades/orderBuyId/" + buyOrder.getId().toString()
+                            + "/orderSellId/" + sellOrder.getId().toString(),
+                            TradeDTO.class)).isInstanceOf(HttpClientErrorException.NotFound.class);
     }
 
-    private void createUser(String userName) {
-        UserDTO userDTO = new UserDTO();
-        userDTO.setUsername(userName);
-        userDTO.setPassword(RandomStringUtils.randomAlphanumeric(64));
-        UserDTO userReturned = restUtility.post("api/users",
-                userDTO,
-                UserDTO.class);
-        userMap.put(userName, userReturned);
-        logger.info("User created: {}", userReturned);
+    private void createUser(final String userName) {
+            UserDTO userDTO = new UserDTO();
+            userDTO.setUsername(userName);
+            userDTO.setPassword(RandomStringUtils.randomAlphanumeric(64));
+            UserDTO userReturned = restUtility.post("api/users",
+                            userDTO,
+                            UserDTO.class);
+            userMap.put(userName, userReturned);
+            logger.info("User created: {}", userReturned);
     }
 
-    private void createSecurity(String securityName) {
-        SecurityDTO securityDTO = new SecurityDTO();
-        securityDTO.setName(securityName);
-        SecurityDTO securityReturned = restUtility.post("api/securities",
-                securityDTO,
-                SecurityDTO.class);
-        securityMap.put(securityName, securityReturned);
-        logger.info("Security created: {}", securityReturned);
+    private void createSecurity(final String securityName) {
+            SecurityDTO securityDTO = new SecurityDTO();
+            securityDTO.setName(securityName);
+            SecurityDTO securityReturned = restUtility.post("api/securities",
+                            securityDTO,
+                            SecurityDTO.class);
+            securityMap.put(securityName, securityReturned);
+            logger.info("Security created: {}", securityReturned);
     }
 
-    private void createOrder(String userName,
-                             EOrderType orderType,
-                             String securityName,
-                             Double price,
-                             Long quantity) {
+    private void createOrder(final String userName,
+                    final EOrderType orderType,
+                    final String securityName,
+                    final Double price,
+                    final Long quantity) {
         // TODO: implement create oder function
         UserDTO userDTO = userMap.get(userName);
         SecurityDTO securityDTO = securityMap.get(securityName);
