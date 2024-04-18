@@ -65,14 +65,11 @@ public class OrderControllerUnit {
         OrderDTO mockOrderDTO = new OrderDTO();
         mockOrderDTO.setUserId(UUID.randomUUID()); 
 
-        // Mock an exception when trying to save the order
-        when(orderRepository.save(any(OrderEntity.class)))
-                .thenThrow(new RuntimeException("User not found"));
-
         ResponseEntity<OrderDTO> responseEntity = orderController.addOrder(mockOrderDTO);
 
         // Verify that the response status code is 500 (INTERNAL_SERVER_ERROR)
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, responseEntity.getStatusCode());
         assertEquals(null, responseEntity.getBody());
     }
+
 }
